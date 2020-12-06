@@ -15,6 +15,19 @@ class AlgTester:
         self.sigma_thresh = sigma_thresh
         self.initial_sample_size = initial_sample_size
 
+    def get_params(self):
+        """
+        :return: String with parameters, separated by semi-colons
+        """
+        return "sigma_thresh={};sample_size={}".format(self.sigma_thresh, self.initial_sample_size)
+    def reset(self):
+        self.sampled = False
+        self.sample_index = 0
+        self.sample_sigma = 0
+        self.sample_mu = 0
+        self.window_size = 5
+        self.initial_sample = pd.DataFrame()
+
     def detect(self,data):
         self.sample_index = self.sample_index + len(data)
         if self.sampled == True:
