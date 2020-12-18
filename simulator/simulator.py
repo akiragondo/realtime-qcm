@@ -5,6 +5,9 @@ import numpy as np
 from utils.utils import plot_graph_detections,check_detections
 import json
 
+from viz.features import plot_simple_stats
+
+
 class Simulator:
     """"
     Simulator:
@@ -69,9 +72,8 @@ class Simulator:
         results = []
         for file in self.files_data:
             print('Making detections in {} file'.format(file['file_name']))
-
             data = file['data']
-            plot_data = data.resample('1min').mean()
+            plot_simple_stats(file['data'], self.data_packet_size)
             detections = []
             for g, df in data.groupby(np.arange(len(data)) // self.data_packet_size):
                 alg_detection = algorithm.detect(df)
